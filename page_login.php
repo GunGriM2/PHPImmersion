@@ -1,4 +1,7 @@
-<?php session_start(); ?>
+<?php 
+session_start(); 
+require "functions.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,11 +38,7 @@
         </div>
         <div class="card p-4 border-top-left-radius-0 border-top-right-radius-0">
             
-            <?php if( isset($_SESSION['success'])): ?>
-            <div class="alert alert-success">
-                <?php echo $_SESSION['success']; ?>
-            </div>
-            <?php endif; ?>
+            <?php display_flash_message("success"); ?>
 
             <form action="">
                 <div class="form-group">
