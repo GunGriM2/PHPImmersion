@@ -42,4 +42,21 @@ function redirect_to($path){
     header("Location: {$path}");
     exit;
 }
+
+function login($email, $password){
+
+    $user = get_user_by_email($email);
+
+    if (empty($user)) {
+        set_flash_message('danger', "Пользователь с такой почтой не найден.");
+        return false;
+    } elseif (!password_verify($password, $user['password'])) {
+        set_flash_message('danger', "Введен неверный пароль.");
+        return false;
+    }
+    
+    return true;
+
+}
+
 ?>

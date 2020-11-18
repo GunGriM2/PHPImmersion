@@ -39,15 +39,16 @@ require "functions.php";
         <div class="card p-4 border-top-left-radius-0 border-top-right-radius-0">
             
             <?php display_flash_message("success"); ?>
+            <?php display_flash_message("danger"); ?>
 
-            <form action="">
+            <form action="login.php" method="POST">
                 <div class="form-group">
                     <label class="form-label" for="username">Email</label>
-                    <input type="email" id="username" class="form-control" placeholder="Эл. адрес" value="">
+                    <input type="email" id="username" name="email" class="form-control" placeholder="Эл. адрес" value="">
                 </div>
                 <div class="form-group">
                     <label class="form-label" for="password">Пароль</label>
-                    <input type="password" id="password" class="form-control" placeholder="" >
+                    <input type="password" id="password" name="password" class="form-control" placeholder="" >
                 </div>
                 <div class="form-group text-left">
                     <div class="custom-control custom-checkbox">
