@@ -59,4 +59,14 @@ function login($email, $password){
 
 }
 
+function is_not_logged_in(){
+
+    if (isset($_SESSION['user'])){
+        return false;
+    } else {
+        return true;
+    }
+
+}
+
 ?>
