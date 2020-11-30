@@ -69,4 +69,115 @@ function is_not_logged_in(){
 
 }
 
+function edit_information($user_id, $name, $job, $phone_number, $address){
+
+    $pdo = new pdo('mysql:host=localhost; dbname=my_project;', 'root', 'Mgmoioba1');
+
+    $sql = "UPDATE users 
+            SET name = :name,
+                job = :job,
+                phone_number = :phone_number,
+                address = :address
+            WHERE id = :user_id";
+    $statement = $pdo->prepare($sql);
+    $statement->execute(
+        [   
+            'name' => $name,
+            'job' => $job,
+            'phone_number' => $phone_number,
+            'address' => $address,
+            'user_id' => $user_id
+        ]
+    );
+        
+    return true;
+
+}
+
+function set_status($user_id, $status){
+
+    switch ($status) {
+        case 'Онлайн': 
+            $status = 'success';
+            break;
+        case 'Отошел': 
+            $status = 'warning';
+            break;
+        case 'Не беспокоить': 
+            $status = 'danger';
+            break;
+    }
+
+    $pdo = new pdo('mysql:host=localhost; dbname=my_project;', 'root', 'Mgmoioba1');
+
+    $sql = "UPDATE users 
+            SET status = :status
+            WHERE id = :user_id";
+    $statement = $pdo->prepare($sql);
+    $statement->execute(
+        [   
+            'status' => $status,
+            'user_id' => $user_id
+        ]
+    );
+
+}
+
+function upload_avatar($user_id, $image){
+
+    $pdo = new pdo('mysql:host=localhost; dbname=my_project;', 'root', 'Mgmoioba1');
+
+    $sql = "SELECT avatar FROM users 
+            WHERE id = :user_id";
+    $statement = $pdo->prepare($sql);
+    $statement->execute(
+        [   
+            'user_id' => $user_id
+        ]
+    );
+    $old_image = $statement->fetch(PDO::FETCH_ASSOC);
+
+    if ($old_image['avatar']) {
+        unlink("img/demo/avatars/{$old_image['avatar']}");
+    }
+
+    $path = $image['name'];
+    $ext = pathinfo($path, PATHINFO_EXTENSION); 
+    $image_name = uniqid() . "." . $ext;
+
+    $uploadfile = 'img/demo/avatars/' . basename($image_name);
+    move_uploaded_file($image['tmp_name'], $uploadfile);
+
+    $sql = "UPDATE users 
+            SET avatar = :avatar
+            WHERE id = :user_id";
+    $statement = $pdo->prepare($sql);
+    $statement->execute(
+        [   
+            'avatar' => $image_name,
+            'user_id' => $user_id
+        ]
+    );
+
+}
+
+function add_social_links($user_id, $vk_link, $telegram_link, $instagram_link){
+    
+    $pdo = new pdo('mysql:host=localhost; dbname=my_project;', 'root', 'Mgmoioba1');
+
+    $sql = "UPDATE users 
+            SET vk_link = :vk_link,
+                telegram_link = :telegram_link,
+                instagram_link = :instagram_link
+            WHERE id = :user_id";
+    $statement = $pdo->prepare($sql);
+    $statement->execute(
+        [   
+            'vk_link' => $vk_link,
+            'telegram_link' => $telegram_link,
+            'instagram_link' => $instagram_link,
+            'user_id' => $user_id
+        ]
+    );
+}
 ?>

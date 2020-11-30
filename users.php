@@ -43,9 +43,10 @@
         </nav>
 
         <main id="js-page-content" role="main" class="page-content mt-3">
-            <div class="alert alert-success">
+            <!-- <div class="alert alert-success">
                 Профиль успешно обновлен.
-            </div>
+            </div> -->
+            <?php display_flash_message("success"); ?>
             <div class="subheader">
                 <h1 class="subheader-title">
                     <i class='subheader-icon fal fa-users'></i> Список пользователей
@@ -55,7 +56,7 @@
                 <div class="col-xl-12">
                     
                     <?php if ($_SESSION['user']['role'] == 'admin'): ?>
-                        <a class="btn btn-success" href="create_user.html">Добавить</a>
+                        <a class="btn btn-success" href="create_user.php">Добавить</a>
                     <?php endif; ?>
 
                     <div class="border-faded bg-faded p-3 mb-g d-flex mt-3">
@@ -88,7 +89,7 @@
                             <div class="card-body border-faded border-top-0 border-left-0 border-right-0 rounded-top">
                                 <div class="d-flex flex-row align-items-center">
                                     <span class="status status-<?php echo $user['status']; ?> mr-3">
-                                        <span class="rounded-circle profile-image d-block " style="background-image:url('<?php echo $user['avatar_url']; ?>'); background-size: cover;"></span>
+                                        <span class="rounded-circle profile-image d-block " style="background-image:url('img/demo/avatars/<?php echo $user['avatar']; ?>'); background-size: cover;"></span>
                                     </span>
                                     <div class="info-card-text flex-1">
                                         
@@ -137,13 +138,13 @@
                                     <address class="fs-sm fw-400 mt-4 text-muted">
                                         <i class="fas fa-map-pin mr-2"></i> <?php echo $user['address']; ?></address>
                                     <div class="d-flex flex-row">
-                                        <a href="javascript:void(0);" class="mr-2 fs-xxl" style="color:#4680C2">
+                                        <a href="<?php echo $user['vk_link']; ?>" class="mr-2 fs-xxl" style="color:#4680C2">
                                             <i class="fab fa-vk"></i>
                                         </a>
-                                        <a href="javascript:void(0);" class="mr-2 fs-xxl" style="color:#38A1F3">
+                                        <a href="<?php echo $user['telegram_link']; ?>" class="mr-2 fs-xxl" style="color:#38A1F3">
                                             <i class="fab fa-telegram"></i>
                                         </a>
-                                        <a href="javascript:void(0);" class="mr-2 fs-xxl" style="color:#E1306C">
+                                        <a href="<?php echo $user['instagram_link']; ?>" class="mr-2 fs-xxl" style="color:#E1306C">
                                             <i class="fab fa-instagram"></i>
                                         </a>
                                     </div>
