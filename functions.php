@@ -11,6 +11,17 @@ function get_user_by_email($email){
     return $user;
 }
 
+function get_user_by_id($user_id){
+    
+    $pdo = new pdo('mysql:host=localhost; dbname=my_project;', 'root', 'Mgmoioba1');
+
+    $statement = $pdo->prepare("SELECT * FROM users WHERE id=:id");
+    $statement->execute(['id' => $user_id]);
+    $user = $statement->fetch(PDO::FETCH_ASSOC);
+
+    return $user;
+}
+
 function add_user($email, $password){
 
     $pdo = new pdo('mysql:host=localhost; dbname=my_project;', 'root', 'Mgmoioba1');
@@ -179,5 +190,11 @@ function add_social_links($user_id, $vk_link, $telegram_link, $instagram_link){
             'user_id' => $user_id
         ]
     );
+}
+
+function is_author($logged_user_id, $edit_user_id) {
+
+    return ($logged_user_id == $edit_user_id) ? true : false;
+
 }
 ?>

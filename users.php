@@ -43,10 +43,10 @@
         </nav>
 
         <main id="js-page-content" role="main" class="page-content mt-3">
-            <!-- <div class="alert alert-success">
-                Профиль успешно обновлен.
-            </div> -->
+
             <?php display_flash_message("success"); ?>
+            <?php display_flash_message("danger"); ?>
+            
             <div class="subheader">
                 <h1 class="subheader-title">
                     <i class='subheader-icon fal fa-users'></i> Список пользователей
@@ -102,7 +102,7 @@
                                             </a>
                                             <?php if ( ($_SESSION['user']['role'] == 'admin') or ($_SESSION['user']['id'] == $user['id']) ): ?>
                                             <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="edit.html?id=<?php echo $user['id']; ?>">
+                                                <a class="dropdown-item" href="edit.php?id=<?php echo $user['id']; ?>">
                                                     <i class="fa fa-edit"></i>
                                                 Редактировать</a>
                                                 <a class="dropdown-item" href="security.html?id=<?php echo $user['id']; ?>">
