@@ -33,7 +33,7 @@
                 </ul>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="page_login.html">Войти</a>
+                        <a class="nav-link" href="page_login.php">Войти</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Выйти</a>
@@ -46,7 +46,7 @@
 
             <?php display_flash_message("success"); ?>
             <?php display_flash_message("danger"); ?>
-            
+
             <div class="subheader">
                 <h1 class="subheader-title">
                     <i class='subheader-icon fal fa-users'></i> Список пользователей
@@ -92,15 +92,16 @@
                                         <span class="rounded-circle profile-image d-block " style="background-image:url('img/demo/avatars/<?php echo $user['avatar']; ?>'); background-size: cover;"></span>
                                     </span>
                                     <div class="info-card-text flex-1">
-                                        
-                                            <a href="javascript:void(0);" class="fs-xl text-truncate text-truncate-lg text-info" data-toggle="dropdown" aria-expanded="false">
-                                                <?php echo $user['name']; ?>
-                                                <?php if ( ($_SESSION['user']['role'] == 'admin') or ($_SESSION['user']['id'] == $user['id']) ): ?>
+                                    
+                                            <a id="golink" href="page_profile.php?id=<?php echo $user['id']; ?>" class="fs-xl text-truncate text-truncate-lg text-info" >
+                                            <?php echo $user['name']; ?>
+                                            </a>
+
+                                            <?php if ( ($_SESSION['user']['role'] == 'admin') or ($_SESSION['user']['id'] == $user['id']) ): ?>
+                                            <a class="fs-xl text-truncate text-truncate-lg text-info" data-toggle="dropdown" aria-expanded="false">
                                                 <i class="fal fas fa-cog fa-fw d-inline-block ml-1 fs-md"></i>
                                                 <i class="fal fa-angle-down d-inline-block ml-1 fs-md"></i>
-                                                <?php endif; ?>
-                                            </a>
-                                            <?php if ( ($_SESSION['user']['role'] == 'admin') or ($_SESSION['user']['id'] == $user['id']) ): ?>
+                                            </a>           
                                             <div class="dropdown-menu">
                                                 <a class="dropdown-item" href="edit.php?id=<?php echo $user['id']; ?>">
                                                     <i class="fa fa-edit"></i>
@@ -120,7 +121,7 @@
                                                     Удалить
                                                 </a>
                                             </div>
-                                        <?php endif; ?>
+                                            <?php endif; ?>
                                         <span class="text-truncate text-truncate-xl"><?php echo $user['job']; ?></span>
                                     </div>
                                     <button class="js-expand-btn btn btn-sm btn-default d-none" data-toggle="collapse" data-target="#c_<?php echo $user['id']; ?> > .card-body + .card-body" aria-expanded="false">
