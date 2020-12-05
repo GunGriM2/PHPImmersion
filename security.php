@@ -1,3 +1,25 @@
+<?php 
+    session_start();
+    require "functions.php";
+
+    if (is_not_logged_in()) {
+        redirect_to("page_login.php");
+    } 
+
+    $logged_user_id = $_SESSION['user']['id'];
+    $edit_user_id = $_GET['id'];
+    $_SESSION['edit_user_id'] = $edit_user_id;
+
+    if ($_SESSION['user']['role'] !== 'admin') {
+        if (!is_author($logged_user_id, $edit_user_id)) {
+            set_flash_message("danger", "Редактировать можно только свой профиль.");
+            redirect_to("users.php");
+        }
+    }
+
+    $edit_user = get_user_by_id($edit_user_id); 
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,13 +54,16 @@
         </div>
     </nav>
     <main id="js-page-content" role="main" class="page-content mt-3">
+        
+        <?php display_flash_message("danger"); ?>
+
         <div class="subheader">
             <h1 class="subheader-title">
                 <i class='subheader-icon fal fa-lock'></i> Безопасность
             </h1>
 
         </div>
-        <form action="">
+        <form action="edit_security.php" method="POST">
             <div class="row">
                 <div class="col-xl-6">
                     <div id="panel-1" class="panel">
@@ -50,13 +75,13 @@
                                 <!-- email -->
                                 <div class="form-group">
                                     <label class="form-label" for="simpleinput">Email</label>
-                                    <input type="text" id="simpleinput" class="form-control" value="john@example.com">
+                                    <input type="text" id="simpleinput" name="email" class="form-control" value="<?php echo $edit_user['email']; ?>">
                                 </div>
 
                                 <!-- password -->
                                 <div class="form-group">
                                     <label class="form-label" for="simpleinput">Пароль</label>
-                                    <input type="password" id="simpleinput" class="form-control">
+                                    <input type="password" id="simpleinput" name="password" class="form-control">
                                 </div>
 
                                 <!-- password confirmation-->

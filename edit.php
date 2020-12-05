@@ -8,6 +8,7 @@
 
     $logged_user_id = $_SESSION['user']['id'];
     $edit_user_id = $_GET['id'];
+    $_SESSION['edit_user_id'] = $_GET['id'];
 
     if ($_SESSION['user']['role'] !== 'admin') {
         if (!is_author($logged_user_id, $edit_user_id)) {

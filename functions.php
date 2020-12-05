@@ -80,6 +80,25 @@ function is_not_logged_in(){
 
 }
 
+function edit_credentials($user_id, $email, $password){
+    
+    $pdo = new pdo('mysql:host=localhost; dbname=my_project;', 'root', 'Mgmoioba1');
+
+    $sql = "UPDATE users 
+            SET email = :email,
+                password = :password
+            WHERE id = :user_id";
+    $statement = $pdo->prepare($sql);
+    $statement->execute(
+        [   
+            'email' => $email,
+            'password' => password_hash($password, PASSWORD_DEFAULT),
+            'user_id' => $user_id
+        ]
+    );
+    
+}
+
 function edit_information($user_id, $name, $job, $phone_number, $address){
 
     $pdo = new pdo('mysql:host=localhost; dbname=my_project;', 'root', 'Mgmoioba1');
@@ -100,8 +119,6 @@ function edit_information($user_id, $name, $job, $phone_number, $address){
             'user_id' => $user_id
         ]
     );
-        
-    return true;
 
 }
 

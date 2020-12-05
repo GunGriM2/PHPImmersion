@@ -93,7 +93,7 @@
                                     </span>
                                     <div class="info-card-text flex-1">
                                     
-                                            <a id="golink" href="page_profile.php?id=<?php echo $user['id']; ?>" class="fs-xl text-truncate text-truncate-lg text-info" >
+                                            <a href="page_profile.php?id=<?php echo $user['id']; ?>" class="fs-xl text-truncate text-truncate-lg text-info" >
                                             <?php echo $user['name']; ?>
                                             </a>
 
@@ -106,13 +106,13 @@
                                                 <a class="dropdown-item" href="edit.php?id=<?php echo $user['id']; ?>">
                                                     <i class="fa fa-edit"></i>
                                                 Редактировать</a>
-                                                <a class="dropdown-item" href="security.html?id=<?php echo $user['id']; ?>">
+                                                <a class="dropdown-item" href="security.php?id=<?php echo $user['id']; ?>">
                                                     <i class="fa fa-lock"></i>
                                                 Безопасность</a>
-                                                <a class="dropdown-item" href="status.html?id=<?php echo $user['id']; ?>">
+                                                <a class="dropdown-item" href="status.php?id=<?php echo $user['id']; ?>">
                                                     <i class="fa fa-sun"></i>
                                                 Установить статус</a>
-                                                <a class="dropdown-item" href="media.html?id=<?php echo $user['id']; ?>">
+                                                <a class="dropdown-item" href="media.php?id=<?php echo $user['id']; ?>">
                                                     <i class="fa fa-camera"></i>
                                                     Загрузить аватар
                                                 </a>
