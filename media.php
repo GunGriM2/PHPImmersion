@@ -70,7 +70,7 @@
                             </div>
                             <div class="panel-content">
                                 <div class="form-group">
-                                    <img src="img/demo/avatars/<?php echo $edit_user['avatar'] !== NULL ? $edit_user['avatar'] : "avatar-m.png"; ?>" alt="" class="img-responsive" width="200">
+                                    <img src="img/demo/avatars/<?php echo has_image($edit_user_id) ? $edit_user['avatar'] : "avatar-m.png"; ?>" alt="" class="img-responsive" width="200">
                                 </div>
 
                                 <div class="form-group">

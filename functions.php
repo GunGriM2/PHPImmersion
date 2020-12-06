@@ -219,7 +219,7 @@ function is_author($logged_user_id, $edit_user_id) {
 
 function has_image($user_id){
     
-    return (get_user_by_id($user_id)['image'] != NULL) ? true : false;
+    return (get_user_by_id($user_id)['avatar'] != NULL) ? true : false;
 
 }
 ?>
