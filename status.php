@@ -1,3 +1,31 @@
+<?php 
+    session_start();
+    require "functions.php";
+
+    if (is_not_logged_in()) {
+        redirect_to("page_login.php");
+    } 
+
+    $logged_user_id = $_SESSION['user']['id'];
+    $edit_user_id = $_GET['id'];
+    $_SESSION['edit_user_id'] = $edit_user_id;
+
+    if ($_SESSION['user']['role'] !== 'admin') {
+        if (!is_author($logged_user_id, $edit_user_id)) {
+            set_flash_message("danger", "Редактировать можно только свой профиль.");
+            redirect_to("users.php");
+        }
+    }
+
+    $edit_user = get_user_by_id($edit_user_id);
+
+    $statuses = [
+        'success' => 'Онлайн',
+        'warning' => 'Отошел',
+        'danger' => 'Не беспокоить'
+    ];
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,7 +66,7 @@
             </h1>
 
         </div>
-        <form action="">
+        <form action="edit_status.php" method="POST">
             <div class="row">
                 <div class="col-xl-6">
                     <div id="panel-1" class="panel">
@@ -52,10 +80,12 @@
                                         <!-- status -->
                                         <div class="form-group">
                                             <label class="form-label" for="example-select">Выберите статус</label>
-                                            <select class="form-control" id="example-select">
-                                                <option>Онлайн</option>
-                                                <option>Отошел</option>
-                                                <option>Не беспокоить</option>
+                                            <select class="form-control" id="example-select" name="status_select">
+                                                <?php foreach ($statuses as $status => $name): ?>
+                                                <option <?php if ($status == $edit_user['status']) echo 'selected' ?> value="<?php echo $status; ?>">
+                                                    <?php echo $name; ?>
+                                                </option>
+                                                <?php endforeach; ?>
                                             </select>
                                         </div>
                                     </div>
