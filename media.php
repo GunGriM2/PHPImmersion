@@ -1,3 +1,25 @@
+<?php 
+    session_start();
+    require "functions.php";
+
+    if (is_not_logged_in()) {
+        redirect_to("page_login.php");
+    } 
+
+    $logged_user_id = $_SESSION['user']['id'];
+    $edit_user_id = $_GET['id'];
+    $_SESSION['edit_user_id'] = $edit_user_id;
+
+    if ($_SESSION['user']['role'] !== 'admin') {
+        if (!is_author($logged_user_id, $edit_user_id)) {
+            set_flash_message("danger", "Редактировать можно только свой профиль.");
+            redirect_to("users.php");
+        }
+    }
+
+    $edit_user = get_user_by_id($edit_user_id); 
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,7 +45,7 @@
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="page_login.html">Войти</a>
+                    <a class="nav-link" href="page_login.php">Войти</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Выйти</a>
@@ -38,7 +60,7 @@
             </h1>
 
         </div>
-        <form action="">
+        <form enctype="multipart/form-data" action="edit_media.php" method="POST">
             <div class="row">
                 <div class="col-xl-6">
                     <div id="panel-1" class="panel">
@@ -48,12 +70,12 @@
                             </div>
                             <div class="panel-content">
                                 <div class="form-group">
-                                    <img src="img/demo/authors/josh.png" alt="" class="img-responsive" width="200">
+                                    <img src="img/demo/avatars/<?php echo $edit_user['avatar'] !== NULL ? $edit_user['avatar'] : "avatar-m.png"; ?>" alt="" class="img-responsive" width="200">
                                 </div>
 
                                 <div class="form-group">
                                     <label class="form-label" for="example-fileinput">Выберите аватар</label>
-                                    <input type="file" id="example-fileinput" class="form-control-file">
+                                    <input type="file" id="example-fileinput" name="image" class="form-control-file">
                                 </div>
 
 

@@ -96,7 +96,7 @@ function edit_credentials($user_id, $email, $password){
             'user_id' => $user_id
         ]
     );
-    
+
 }
 
 function edit_information($user_id, $name, $job, $phone_number, $address){
@@ -152,6 +152,8 @@ function set_status($user_id, $status){
 }
 
 function upload_avatar($user_id, $image){
+
+    if (!$image['name']) return;
 
     $pdo = new pdo('mysql:host=localhost; dbname=my_project;', 'root', 'Mgmoioba1');
 
@@ -212,6 +214,12 @@ function add_social_links($user_id, $vk_link, $telegram_link, $instagram_link){
 function is_author($logged_user_id, $edit_user_id) {
 
     return ($logged_user_id == $edit_user_id) ? true : false;
+
+}
+
+function has_image($user_id){
+    
+    return (get_user_by_id($user_id)['image'] != NULL) ? true : false;
 
 }
 ?>
