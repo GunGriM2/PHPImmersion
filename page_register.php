@@ -4,8 +4,8 @@
 ?>
 <!DOCTYPE html>
 <html lang="en">
-`<head>
-`    <meta charset="utf-8">
+<head>
+    <meta charset="utf-8">
     <title>
         Регистрация
     </title>
@@ -42,7 +42,7 @@
                         <span class="text-white opacity-50 ml-auto mr-2 hidden-sm-down">
                             Уже зарегистрированы?
                         </span>
-                        <a href="page_login.html" class="btn-link text-white ml-auto ml-sm-0">
+                        <a href="page_login.php" class="btn-link text-white ml-auto ml-sm-0">
                             Войти
                         </a>
                     </div>
@@ -63,7 +63,8 @@
                             </div>
                             <div class="col-xl-6 ml-auto mr-auto">
                                 <div class="card p-4 rounded-plus bg-faded">
-                                    
+                                
+                                <?php display_flash_message("success"); ?>
                                 <?php display_flash_message("danger"); ?>
 
                                     <form id="js-login" novalidate="" action="register.php" method="POST">

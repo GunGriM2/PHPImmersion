@@ -222,4 +222,33 @@ function has_image($user_id){
     return (get_user_by_id($user_id)['avatar'] != NULL) ? true : false;
 
 }
+
+function delete($user_id) {
+
+    $pdo = new pdo('mysql:host=localhost; dbname=my_project;', 'root', 'Mgmoioba1');
+
+    $sql = "SELECT avatar FROM users 
+            WHERE id = :user_id";
+    $statement = $pdo->prepare($sql);
+    $statement->execute(
+        [   
+            'user_id' => $user_id
+        ]
+    );
+    $old_image = $statement->fetch(PDO::FETCH_ASSOC);
+
+    if ($old_image['avatar']) {
+        unlink("img/demo/avatars/{$old_image['avatar']}");
+    }
+
+    $sql = "DELETE FROM users WHERE id = :user_id";
+    $statement = $pdo->prepare($sql);
+    $statement->execute(
+        [   
+            'user_id' => $user_id
+        ]
+    );
+
+}
+
 ?>
